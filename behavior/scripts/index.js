@@ -1,7 +1,6 @@
 'use strict'
 
 exports.handle = function handle(client) {
-
   const sayHello = client.createStep({
     satisfied() {
       return Boolean(client.getConversationState().helloSent)
@@ -55,17 +54,12 @@ exports.handle = function handle(client) {
 
   client.runFlow({
     classifications: {
-			// map inbound message classifications to names of streams
-      greeting: 'greeting',
       goodbye: 'goodbye',
-
-    },
-    autoResponses: {
-      // configure responses to be automatically sent as predicted by the machine learning model
+      greeting: 'greeting'
     },
     streams: {
-      greeting: handleGreeting,
       goodbye: handleGoodbye,
+      greeting: handleGreeting,
       main: 'onboarding',
       onboarding: [sayHello],
       end: [untrained]
